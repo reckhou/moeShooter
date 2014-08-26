@@ -10,6 +10,7 @@ public class mobMover : MonoBehaviour {
 	void FixedUpdate() {
 		Vector3 newPos = transform.position;
 		newPos.y -= speed;
+		newPos.z -= speed * 0.8f;
 		transform.position = newPos;
 	}
 }
