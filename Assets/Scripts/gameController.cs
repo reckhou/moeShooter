@@ -11,7 +11,7 @@ public class gameController : MonoBehaviour {
 	
 	void Start ()
 	{
-		StartCoroutine (SpawnWaves ());
+		//StartCoroutine (SpawnWaves ());
 	}
 	
 	IEnumerator SpawnWaves ()
