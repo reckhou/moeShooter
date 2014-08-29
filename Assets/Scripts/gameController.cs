@@ -4,6 +4,7 @@ using System.Collections;
 public class gameController : MonoBehaviour {
 	public GameObject mob;
 	public Vector3 spawnPoint;
+	public float spawnXRange;
 	public float endXRange;
 	public int mobCount;
 	public float spawnWait;
@@ -11,7 +12,11 @@ public class gameController : MonoBehaviour {
 	public float waveWait;
 
 	private bool lampOn;
-	
+
+	void Awake() {
+		Application.targetFrameRate = 60;
+	}
+
 	void Start ()
 	{
 		lampOn = false;
@@ -22,9 +27,9 @@ public class gameController : MonoBehaviour {
 	{
 		yield return new WaitForSeconds (startWait);
 		while (!lampOn) {
-			GameObject lmpl = GameObject.FindGameObjectWithTag("lampLight");
-			if (lmpl != null) {
-			  lmpl.light.intensity = 8;
+			GameObject[] lights = GameObject.FindGameObjectsWithTag("lampLight");
+			foreach (GameObject lmpl in lights) {
+			  lmpl.light.intensity = 5;
 			}
 			lampOn = true;
 			yield return new WaitForSeconds(1);
@@ -33,10 +38,13 @@ public class gameController : MonoBehaviour {
 		{
 			for (int i = 0; i < mobCount; i++)
 			{
-				Vector3 spawnPosition = spawnPoint; //new Vector3(, spawnValues.y, spawnValues.z);
 				Quaternion spawnRotation = Quaternion.identity;
-				Instantiate (mob, spawnPoint, spawnRotation);
-				mob.GetComponent<mobMover>().endPosX = Random.Range (-endXRange, endXRange);
+				spawnPoint.x = Random.Range(-spawnXRange, spawnXRange);
+//				spawnPoint.x = 0.5f;
+				GameObject newMob = Instantiate (mob, spawnPoint, spawnRotation)  as GameObject;
+				float endX = Random.Range (-endXRange, endXRange);
+//				Debug.Log(spawnPoint.x+"_"+endX);
+				newMob.GetComponent<mobMover>().deltaX = endX - spawnPoint.x;
 				yield return new WaitForSeconds (spawnWait);
 			}
 			yield return new WaitForSeconds (waveWait);
