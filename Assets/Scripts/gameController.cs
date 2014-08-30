@@ -12,6 +12,7 @@ public class gameController : MonoBehaviour {
 	public float waveWait;
 
 	private bool lampOn;
+	private int curOrder = 0;
 
 	void Awake() {
 		Application.targetFrameRate = 60;
@@ -45,6 +46,8 @@ public class gameController : MonoBehaviour {
 				float endX = Random.Range (-endXRange, endXRange);
 //				Debug.Log(spawnPoint.x+"_"+endX);
 				newMob.GetComponent<mobMover>().deltaX = endX - spawnPoint.x;
+				newMob.renderer.sortingOrder = curOrder;
+				curOrder--;
 				yield return new WaitForSeconds (spawnWait);
 			}
 			yield return new WaitForSeconds (waveWait);

@@ -22,7 +22,7 @@ public class ShowFPS : MonoBehaviour {
 	
 	void OnGUI() 
 	{
-		GUI.Label(new Rect(0, 100, 200, 200), "FPS:" + f_Fps.ToString("f2"));
+		GUI.Label(new Rect(0, 0, 200, 200), "FPS:" + f_Fps.ToString("f2"));
 	}
 	
 	void Update() 

@@ -69,7 +69,7 @@ public class moonMover : MonoBehaviour {
 				newColor.g += (1.0f/255.0f)*grayScalePerStep * Time.deltaTime;
 				newColor.b += (1.0f/255.0f)*grayScalePerStep * Time.deltaTime;
 //				newColor.a += (1.0f/255.0f)*opcacityPerStep * Time.deltaTime;
-				Debug.Log(newColor.r);
+//				Debug.Log(newColor.r);
 				sp.color = newColor;
 
 				sp = char_0.GetComponent<SpriteRenderer>();
