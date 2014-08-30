@@ -62,17 +62,13 @@ public class moonMover : MonoBehaviour {
 //				if (lmpl != null && lmpl.light.intensity < lampLight) {
 //					lmpl.light.intensity += intensityPerStep * Time.deltaTime / changeRate3 ;
 //				}
-				SpriteRenderer sp = sceneFar.GetComponent<SpriteRenderer>();
+				SpriteRenderer sp = char_0.GetComponent<SpriteRenderer>();
 				Color newColor =  sp.color;
 				newColor.r += (1.0f/255.0f)*grayScalePerStep * Time.deltaTime;
 				newColor.g += (1.0f/255.0f)*grayScalePerStep * Time.deltaTime;
 				newColor.b += (1.0f/255.0f)*grayScalePerStep * Time.deltaTime;
-//				newColor.a += (1.0f/255.0f)*opcacityPerStep * Time.deltaTime;
-//				Debug.Log(newColor.r);
 				sp.color = newColor;
 
-				sp = char_0.GetComponent<SpriteRenderer>();
-				sp.color = newColor;
 			}
 		}
 	}

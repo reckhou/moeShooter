@@ -12,7 +12,7 @@ public class mobMover : MonoBehaviour {
 	void Start() {
 		Vector3 scale = transform.localScale;
 		transform.localScale *= scaleFactor;
-		moveTime = 1.3f / speed; // 1.3: total range of deltaY
+		moveTime = 7.05f / speed; // 7.05: total range of deltaY
 		scaleDeltaStep = (1.0f - scaleFactor) * scale.x / moveTime;
 //		scaleDeltaStep = 0.4f;
 		Debug.Log(moveTime);
