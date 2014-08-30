@@ -15,11 +15,10 @@ public class moonMover : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Vector3 pos = transform.position;
+		Vector3 pos = transform.localPosition;
 		pos.y = startPosY;
-		transform.position = pos;
+		transform.localPosition = pos;
 		spawnTime = (endPosY - startPosY) / speed;
-//		Debug.Log(spawnTime);
 		StartCoroutine (SpawnMoon());
 	}
 
@@ -36,12 +35,12 @@ public class moonMover : MonoBehaviour {
 	void Update () {
 		if (startSpawn)
 		{
-			if (transform.position.y >= endPosY) {
+			if (transform.localPosition.y >= endPosY) {
 				startSpawn = false;
 			} else {
-				Vector3 newPos = transform.position;
+				Vector3 newPos = transform.localPosition;
 				newPos.y += speed * Time.deltaTime;
-				transform.position = newPos;
+				transform.localPosition = newPos;
 				float intensityPerStep = moonLightBack / spawnTime;
 				float grayScalePerStep = 140.0f / spawnTime;
 				float changeRate = moonLightBack / moonLight;
