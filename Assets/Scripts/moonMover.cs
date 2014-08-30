@@ -45,7 +45,7 @@ public class moonMover : MonoBehaviour {
 				float grayScalePerStep = 140.0f / spawnTime;
 				float changeRate = moonLightBack / moonLight;
 				float changeRate2 = moonLightBack / envLight;
-				float changeRate3 = moonLightBack / lampLight;
+//				float changeRate3 = moonLightBack / lampLight;
 				GameObject ml = GameObject.FindGameObjectWithTag("moonlight");
 				GameObject mlb = GameObject.FindGameObjectWithTag("moonlightback");
 				GameObject envl = GameObject.FindGameObjectWithTag("envLight");
