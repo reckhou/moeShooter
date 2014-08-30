@@ -37,12 +37,19 @@ public class gameController : MonoBehaviour {
 		}
 		while (true)
 		{
+			GameObject battleLayer = GameObject.Find("battleLayer");
 			for (int i = 0; i < mobCount; i++)
 			{
 				Quaternion spawnRotation = Quaternion.identity;
 				spawnPoint.x = Random.Range(-spawnXRange, spawnXRange);
 //				spawnPoint.x = 0.5f;
 				GameObject newMob = Instantiate (mob, spawnPoint, spawnRotation)  as GameObject;
+				newMob.transform.parent = battleLayer.transform;
+
+				Vector3 pos = newMob.transform.position;
+				pos.z += battleLayer.transform.position.z;
+				newMob.transform.position = pos;
+
 				float endX = Random.Range (-endXRange, endXRange);
 //				Debug.Log(spawnPoint.x+"_"+endX);
 				newMob.GetComponent<mobMover>().deltaX = endX - spawnPoint.x;
