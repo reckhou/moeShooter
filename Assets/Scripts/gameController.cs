@@ -11,6 +11,8 @@ public class gameController : MonoBehaviour {
 	public float startWait;
 	public float waveWait;
 
+	public GameObject camera;
+
 	private bool lampOn;
 	private int curOrder = 0;
 
@@ -55,6 +57,7 @@ public class gameController : MonoBehaviour {
 				newMob.GetComponent<mobMover>().deltaX = endX - spawnPoint.x;
 				newMob.renderer.sortingOrder = curOrder;
 				curOrder--;
+			 	camera.GetComponent<camLookAt>().target = newMob.transform;
 				yield return new WaitForSeconds (spawnWait);
 			}
 			yield return new WaitForSeconds (waveWait);

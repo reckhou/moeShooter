@@ -24,13 +24,10 @@ public class mobMover : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		Vector3 newPos = transform.position;
-		newPos.x += deltaX / moveTime * Time.deltaTime;
-		newPos.y -= speed * Time.deltaTime;
-		//		newPos.z -= speed * 0.8f * Time.deltaTime;
-		transform.position = newPos;
+		Vector3 moveVector = new Vector3(deltaX / moveTime, -1, 0);
+		transform.Translate(moveVector * speed * Time.deltaTime);
+
 		Vector3 scale = transform.localScale;
-//		Debug.Log(transform.localScale);
 		scale.x += scaleDeltaStep * Time.deltaTime;
 		scale.y += scaleDeltaStep * Time.deltaTime;
 		transform.localScale = scale;

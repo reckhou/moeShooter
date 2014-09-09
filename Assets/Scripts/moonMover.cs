@@ -3,7 +3,7 @@ using System.Collections;
 
 public class moonMover : MonoBehaviour {
 	public float endPosY;
-	public float speed;
+	public float speed, lightSmooth;
 	public float startPosY;
 	public float moonLight, moonLightBack, envLight, lampLight;
 	public float startWait;
@@ -13,12 +13,16 @@ public class moonMover : MonoBehaviour {
 	private bool startSpawn = false;
 	private float spawnTime;
 
+	private Vector3 endPos;
+
 	// Use this for initialization
 	void Start () {
 		Vector3 pos = transform.localPosition;
 		pos.y = startPosY;
 		transform.localPosition = pos;
 		spawnTime = (endPosY - startPosY) / speed;
+		endPos = pos;
+		endPos.y = endPosY;
 		StartCoroutine (SpawnMoon());
 	}
 
@@ -38,27 +42,39 @@ public class moonMover : MonoBehaviour {
 			if (transform.localPosition.y >= endPosY) {
 				startSpawn = false;
 			} else {
-				Vector3 newPos = transform.localPosition;
-				newPos.y += speed * Time.deltaTime;
-				transform.localPosition = newPos;
-				float intensityPerStep = moonLightBack / spawnTime;
-				float grayScalePerStep = 140.0f / spawnTime;
-				float changeRate = moonLightBack / moonLight;
-				float changeRate2 = moonLightBack / envLight;
-//				float changeRate3 = moonLightBack / lampLight;
+				transform.localPosition = Vector3.Lerp(transform.localPosition, endPos, speed * Time.deltaTime);
 				GameObject ml = GameObject.FindGameObjectWithTag("moonlight");
 				GameObject mlb = GameObject.FindGameObjectWithTag("moonlightback");
 				GameObject envl = GameObject.FindGameObjectWithTag("envLight");
+
+				if (ml != null) {
+					ml.light.intensity = Mathf.Lerp(ml.light.intensity, moonLight, lightSmooth * Time.deltaTime);
+				}
+
+				if (mlb != null) {
+					mlb.light.intensity = Mathf.Lerp(mlb.light.intensity, moonLightBack, lightSmooth * Time.deltaTime);
+				}
+
+				if (envl != null) {
+					envl.light.intensity = Mathf.Lerp(envl.light.intensity, envLight, lightSmooth * Time.deltaTime);
+				}
+
+//				float intensityPerStep = moonLightBack / spawnTime;
+				float grayScalePerStep = 140.0f / spawnTime;
+//				float changeRate = moonLightBack / moonLight;
+//				float changeRate2 = moonLightBack / envLight;
+//				float changeRate3 = moonLightBack / lampLight;
+
 //				GameObject lmpl = GameObject.FindGameObjectWithTag("lampLight");
-				if (ml != null && ml.light.intensity < moonLight) {
-					ml.light.intensity += intensityPerStep * Time.deltaTime / changeRate;
-				}
-				if (mlb != null && mlb.light.intensity < moonLightBack) {
-					mlb.light.intensity += intensityPerStep * Time.deltaTime;
-				}
-				if (envl != null && envl.light.intensity < envLight) {
-					envl.light.intensity += intensityPerStep * Time.deltaTime / changeRate2 ;
-				}
+//				if (ml != null && ml.light.intensity < moonLight) {
+//					ml.light.intensity += intensityPerStep * Time.deltaTime / changeRate;
+//				}
+//				if (mlb != null && mlb.light.intensity < moonLightBack) {
+//					mlb.light.intensity += intensityPerStep * Time.deltaTime;
+//				}
+//				if (envl != null && envl.light.intensity < envLight) {
+//					envl.light.intensity += intensityPerStep * Time.deltaTime / changeRate2 ;
+//				}
 //				if (lmpl != null && lmpl.light.intensity < lampLight) {
 //					lmpl.light.intensity += intensityPerStep * Time.deltaTime / changeRate3 ;
 //				}
