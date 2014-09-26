@@ -58,6 +58,7 @@ public class BeatController : MonoBehaviour {
 		// init all beat objects
 		updateNextBarTime();
 		for (int i = 0; i < BeatObjects.Count; i++) {
+			BeatObjects[i].Init(nextBarTime);
 			updateBeatObject(BeatObjects[i]);    
     	}
   }
@@ -95,11 +96,11 @@ public class BeatController : MonoBehaviour {
   	}
 
 	private void updateNextBarTime() {
-		if (curBeat % 4 != 0 || curBeat + 4 > BeatTimeList.Count) {
+		if (curBeat %4 != 0 || curBeat + 4 > BeatTimeList.Count) {
 			return;
 		}
 
 		nextBarTime = BeatTimeList[curBeat+4] - BeatTimeList[curBeat];
-		print (nextBarTime);
+//		print (nextBarTime);
 	}
 }

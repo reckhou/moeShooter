@@ -1,0 +1,146 @@
+
+skeleton_Hero4_3.png
+size: 254,126
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body
+  rotate: false
+  xy: 2, 73
+  size: 54, 53
+  orig: 54, 53
+  offset: 0, 0
+  index: -1
+Eye
+  rotate: true
+  xy: 101, 60
+  size: 14, 12
+  orig: 17, 17
+  offset: 0, 2
+  index: -1
+Head
+  rotate: true
+  xy: 2, 11
+  size: 60, 40
+  orig: 60, 40
+  offset: 0, 0
+  index: -1
+L_arm
+  rotate: false
+  xy: 103, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+L_calf1
+  rotate: false
+  xy: 59, 53
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+L_calf2
+  rotate: false
+  xy: 82, 54
+  size: 17, 20
+  orig: 17, 20
+  offset: 0, 0
+  index: -1
+L_foot1
+  rotate: true
+  xy: 44, 23
+  size: 20, 13
+  orig: 20, 13
+  offset: 0, 0
+  index: -1
+L_foot2
+  rotate: true
+  xy: 44, 45
+  size: 26, 13
+  orig: 26, 13
+  offset: 0, 0
+  index: -1
+L_hand
+  rotate: false
+  xy: 172, 103
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+L_shoulder
+  rotate: false
+  xy: 58, 99
+  size: 43, 27
+  orig: 43, 27
+  offset: 0, 0
+  index: -1
+L_thigh
+  rotate: false
+  xy: 98, 76
+  size: 13, 16
+  orig: 14, 16
+  offset: 0, 0
+  index: -1
+L_upperarm
+  rotate: false
+  xy: 44, 2
+  size: 17, 19
+  orig: 17, 19
+  offset: 0, 0
+  index: -1
+R_arm
+  rotate: true
+  xy: 204, 102
+  size: 24, 25
+  orig: 24, 25
+  offset: 0, 0
+  index: -1
+R_calf
+  rotate: false
+  xy: 59, 33
+  size: 16, 18
+  orig: 16, 18
+  offset: 0, 0
+  index: -1
+R_foot
+  rotate: false
+  xy: 231, 91
+  size: 23, 13
+  orig: 23, 13
+  offset: 0, 0
+  index: -1
+R_hand
+  rotate: false
+  xy: 231, 106
+  size: 23, 20
+  orig: 23, 20
+  offset: 0, 0
+  index: -1
+R_shoulder
+  rotate: false
+  xy: 137, 103
+  size: 33, 23
+  orig: 33, 23
+  offset: 0, 0
+  index: -1
+R_thigh
+  rotate: false
+  xy: 115, 64
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+R_upperarm
+  rotate: true
+  xy: 113, 79
+  size: 13, 17
+  orig: 14, 18
+  offset: 0, 0
+  index: -1
+Waist
+  rotate: false
+  xy: 58, 76
+  size: 38, 21
+  orig: 39, 21
+  offset: 0, 0
+  index: -1

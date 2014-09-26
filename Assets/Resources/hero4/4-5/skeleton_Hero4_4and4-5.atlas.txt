@@ -1,0 +1,153 @@
+
+skeleton_Hero4_4and4-5.png
+size: 126,126
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body
+  rotate: false
+  xy: 2, 87
+  size: 44, 39
+  orig: 44, 39
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 84, 103
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+L_arm
+  rotate: false
+  xy: 2, 54
+  size: 28, 31
+  orig: 28, 31
+  offset: 0, 0
+  index: -1
+L_calf1
+  rotate: false
+  xy: 84, 77
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+L_calf2
+  rotate: false
+  xy: 27, 29
+  size: 24, 23
+  orig: 24, 23
+  offset: 0, 0
+  index: -1
+L_foot1
+  rotate: true
+  xy: 78, 25
+  size: 19, 17
+  orig: 19, 17
+  offset: 0, 0
+  index: -1
+L_foot2
+  rotate: false
+  xy: 2, 2
+  size: 20, 13
+  orig: 20, 13
+  offset: 0, 0
+  index: -1
+L_hand
+  rotate: true
+  xy: 75, 2
+  size: 21, 16
+  orig: 21, 16
+  offset: 0, 0
+  index: -1
+L_hand 2
+  rotate: false
+  xy: 53, 46
+  size: 27, 23
+  orig: 27, 23
+  offset: 0, 0
+  index: -1
+L_shoulder
+  rotate: false
+  xy: 48, 101
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
+L_thigh
+  rotate: true
+  xy: 53, 25
+  size: 19, 23
+  orig: 19, 23
+  offset: 0, 0
+  index: -1
+L_upperarm
+  rotate: false
+  xy: 82, 46
+  size: 15, 23
+  orig: 15, 23
+  offset: 0, 0
+  index: -1
+R_arm
+  rotate: false
+  xy: 32, 56
+  size: 19, 29
+  orig: 19, 29
+  offset: 0, 0
+  index: -1
+R_calf
+  rotate: false
+  xy: 50, 2
+  size: 23, 21
+  orig: 23, 21
+  offset: 0, 0
+  index: -1
+R_foot
+  rotate: true
+  xy: 99, 56
+  size: 19, 11
+  orig: 19, 11
+  offset: 0, 0
+  index: -1
+R_hand
+  rotate: false
+  xy: 112, 85
+  size: 14, 16
+  orig: 14, 16
+  offset: 0, 0
+  index: -1
+R_hand 2
+  rotate: true
+  xy: 93, 4
+  size: 19, 17
+  orig: 19, 17
+  offset: 0, 0
+  index: -1
+R_shoulder
+  rotate: false
+  xy: 53, 71
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+R_thigh
+  rotate: true
+  xy: 24, 2
+  size: 13, 20
+  orig: 13, 20
+  offset: 0, 0
+  index: -1
+R_upperarm
+  rotate: true
+  xy: 27, 17
+  size: 10, 21
+  orig: 10, 21
+  offset: 0, 0
+  index: -1
+Waist
+  rotate: true
+  xy: 2, 17
+  size: 35, 23
+  orig: 35, 23
+  offset: 0, 0
+  index: -1

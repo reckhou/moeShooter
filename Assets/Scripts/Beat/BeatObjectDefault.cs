@@ -2,12 +2,15 @@
 using System.Collections;
 
 public class BeatObjectDefault : BeatObject {
-	public float BarTime { get; set; }
 	public float AnimationPerBar = 2;
+	protected Animator anim;
 
-
-	public override void Init() {
-		base.Init();
+	public override void Init(float barTime) {
+		base.Init(barTime);
+		anim = GetComponent<Animator>();
+		if (anim == null) {
+			Debug.Log("ERROR! animator not get");
+		}
 		updateSpeed();
   }
 
@@ -18,11 +21,13 @@ public class BeatObjectDefault : BeatObject {
 		}
   }
 
-	private void updateSpeed() {
+	public virtual void updateSpeed() {
 		/* All animation is 1 sec length by default */
 		float animationTime = BarTime / AnimationPerBar;
-		Animator anim = GetComponent<Animator>();
-		anim.speed = 1.0f / animationTime;
-//		print (1.0f / animationTime);
+		if (animationTime == 0) {
+			anim.speed = 0;
+		} else {
+		    anim.speed = 1.0f / animationTime;
+		}
   }
 }

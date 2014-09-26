@@ -1,0 +1,125 @@
+
+skeleton.png
+size: 254,126
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+EXpipe
+  rotate: true
+  xy: 198, 97
+  size: 29, 54
+  orig: 29, 54
+  offset: 0, 0
+  index: -1
+L_calf
+  rotate: false
+  xy: 130, 21
+  size: 23, 26
+  orig: 23, 26
+  offset: 0, 0
+  index: -1
+L_foot
+  rotate: true
+  xy: 112, 13
+  size: 31, 16
+  orig: 31, 16
+  offset: 0, 0
+  index: -1
+L_hand
+  rotate: false
+  xy: 2, 4
+  size: 74, 54
+  orig: 74, 54
+  offset: 0, 0
+  index: -1
+L_shoulder
+  rotate: false
+  xy: 150, 83
+  size: 46, 43
+  orig: 46, 43
+  offset: 0, 0
+  index: -1
+L_thigh
+  rotate: true
+  xy: 130, 2
+  size: 17, 23
+  orig: 17, 23
+  offset: 0, 0
+  index: -1
+L_upperarm
+  rotate: false
+  xy: 163, 52
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+R_calf
+  rotate: false
+  xy: 233, 48
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+R_foot
+  rotate: false
+  xy: 197, 55
+  size: 34, 17
+  orig: 34, 17
+  offset: 0, 0
+  index: -1
+R_hand
+  rotate: false
+  xy: 88, 83
+  size: 60, 43
+  orig: 60, 43
+  offset: 0, 0
+  index: -1
+R_shoulder
+  rotate: false
+  xy: 88, 46
+  size: 36, 35
+  orig: 36, 35
+  offset: 0, 0
+  index: -1
+R_thigh
+  rotate: false
+  xy: 155, 24
+  size: 17, 23
+  orig: 17, 23
+  offset: 0, 0
+  index: -1
+R_upperarm
+  rotate: false
+  xy: 78, 15
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 60
+  size: 84, 66
+  orig: 85, 67
+  offset: 0, 1
+  index: -1
+goblin
+  rotate: false
+  xy: 126, 49
+  size: 35, 32
+  orig: 35, 32
+  offset: 0, 0
+  index: -1
+goblin hand
+  rotate: true
+  xy: 235, 75
+  size: 20, 13
+  orig: 20, 13
+  offset: 0, 0
+  index: -1
+pelvis
+  rotate: false
+  xy: 198, 74
+  size: 35, 21
+  orig: 35, 21
+  offset: 0, 0
+  index: -1
