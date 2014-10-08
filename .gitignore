@@ -10,3 +10,10 @@ moeShooter.sln
 moeShooter.userprefs
 build
 Assets/Examples
+Assets/spine-csharp
+Assets/spine-unity
+Assembly-CSharp-Editor-vs.csproj
+Assembly-CSharp-Editor.csproj
+Assets/Examples.meta
+Assets/spine-csharp.meta
+Assets/spine-unity.meta
