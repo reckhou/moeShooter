@@ -20,6 +20,8 @@ public class BeatController : MonoBehaviour {
 
 	public Text path;
 
+	public CamController camController;
+
 	private bool LoadBeat(string fileName)
 	{
 		BeatFile = Resources.Load("Beats/"+fileName) as TextAsset;
@@ -79,6 +81,7 @@ public class BeatController : MonoBehaviour {
 		while (curTime + averageUpdateGap >= BeatTimeList[curBeat]) {
 			curBeat++;
 			updateNextBarTime();
+//			camController.SwitchCam();
 			for (int i = 0; i < BeatObjects.Count; i++) {
 				updateBeatObject(BeatObjects[i]);
 				BeatObjects[i].Beat();
