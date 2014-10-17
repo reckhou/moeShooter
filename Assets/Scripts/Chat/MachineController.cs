@@ -4,14 +4,21 @@ using System.Collections;
 
 public class MachineController : MonoBehaviour {
 	private int Voltage;
-	const int minVoltage = 75;
-	const int maxVoltage = 450;
+	public int minVoltage = 60;
+	public int maxVoltage = 300;
+	public int minVoltageStep = 20;
+	public int defaultVoltageStep = 30;
+	public int lastShockVoltage;
+
+	public GameController gameController;
+	
 	private Text voltageText;
 
 	// Use this for initialization
 	void Start () {
 		voltageText = GameObject.Find("Voltage").GetComponent<Text>();
 		SetVoltage(minVoltage);
+		lastShockVoltage = minVoltage;
 	}
 
 	public void SetVoltage(int voltage) {
@@ -26,13 +33,43 @@ public class MachineController : MonoBehaviour {
 	}
 
 	public void AddVoltage() {
-		SetVoltage(Voltage+5);
+		print("AddVoltage");
+		Voltage++;
+		SetVoltage(Voltage);
 	}
 
 	public void MinusVoltage() {
-		SetVoltage(Voltage-5);
+		if (Voltage - 1 < lastShockVoltage + minVoltageStep) {
+			return;
+		}
+
+		Voltage--;
+		SetVoltage(Voltage);
 	}
-	
+
+	public void Shock() {
+		print ("Shock!!!");
+		lastShockVoltage = Voltage;
+		gameController.ShockStepCallback(Voltage);
+	}
+
+	public void ReadyShock() {
+		SetVoltage(lastShockVoltage + defaultVoltageStep);
+	}
+
+	public void Warning() {
+		// professor warning
+	}
+
+	public void StopWarning() {
+	}
+
+	public void SwitchOFF() {
+	}
+
+	public void SwitchON() {
+	}
+
 	// Update is called once per frame
 	void Update () {
 	

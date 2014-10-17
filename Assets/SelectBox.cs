@@ -32,8 +32,14 @@ public class SelectBox : MonoBehaviour {
 	public void AddQuestion(string question, string[] selections) {
 		CleanUp();
 		TextBox.text = question;
-		for (int i = 0; i < selections.Length && i < selectionArray.Length; i++) {
-			selectionArray[i].transform.FindChild("ButtonText").GetComponent<Text>().text = selections[i];
+		for (int i = 0; i < selectionArray.Length; i++) {
+			if (i < selections.Length) {
+				selectionArray[i].interactable = true;
+			    selectionArray[i].transform.FindChild("ButtonText").GetComponent<Text>().text = selections[i];
+			} else {
+				selectionArray[i].interactable = false;
+				selectionArray[i].transform.FindChild("ButtonText").GetComponent<Text>().text = "";
+			}
 		}
 	}
 

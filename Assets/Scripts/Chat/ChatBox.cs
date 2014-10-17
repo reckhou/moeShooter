@@ -27,32 +27,45 @@ public class ChatBox : MonoBehaviour {
 		if (gameController == null) {
 			print ("failed to get game controller!");
 		}
+
+		textList = new List<string>();
 	}
 
-	public void SetText(string text) {
-		TextBox.text = "";
-		string[] textArray = text.Split(new char[1]{'\n'});
-		textList = new List<string>(textArray);
+	public void SetText(List<string> list) {
+		clearText();
+		textList.Clear();
+		if (list == null) {
+			return;
+		}
+
+		textList.AddRange(list);
+		for (int i = 0; i < textList.Count; i++) {
+			textList[i] += "\n";
+		}
 		PlayLine();
 	}
 
 	public void AddText(string text) {
-		string[] textArray = text.Split(new char[1]{'\n'});
-		List<string> tmpList = new List<string>(textArray);
-		textList.AddRange(tmpList);
+		textList.Add(text + "\n");
 	}
 
 	public void PlayLine() {
+		print(textList.Count);
 		if (textList.Count < 1) {
 			textEnd();
 			return;
 		}
 
-		if (textList[0] == "\r") {
+		if (textList[0] == "\r\n") {
 			clearText();
 			textList.RemoveAt(0);
 		}
 
+		if (textList.Count < 1) {
+			textEnd();
+			return;
+		}
+		print (textList[0]);
 		List<char> tmpList = textList[0].ToList();
 		textBuffer.AddRange(tmpList);
 		textBuffer.Add('\n');
