@@ -12,9 +12,20 @@ public class ChatBox : MonoBehaviour {
 	private List<char> textBuffer;
 	private float lastUpdateTime;
 	private GameController gameController;
+	private Image avatar;
+
+	public Sprite DoctorAvatar;
+	public Sprite SubjectAvatar;
+
+	public enum Character {
+		Doctor,
+		Subject
+	};
 
 	// Use this for initialization
 	void Start () {
+		avatar = GameObject.Find("Avatar").GetComponent<Image>();
+
 		if (TextSpeed != 0) {
 			textDeltaTime = 1.0f/TextSpeed;
 		} else {
@@ -29,6 +40,14 @@ public class ChatBox : MonoBehaviour {
 		}
 
 		textList = new List<string>();
+	}
+
+	public void SetAvatar(Character type) {
+		if (type == Character.Doctor) {
+			avatar.sprite = DoctorAvatar;
+		} else if (type == Character.Subject) {
+			avatar.sprite = SubjectAvatar;
+		}
 	}
 
 	public void SetText(List<string> list) {
@@ -50,7 +69,6 @@ public class ChatBox : MonoBehaviour {
 	}
 
 	public void PlayLine() {
-		print(textList.Count);
 		if (textList.Count < 1) {
 			textEnd();
 			return;
@@ -65,7 +83,6 @@ public class ChatBox : MonoBehaviour {
 			textEnd();
 			return;
 		}
-		print (textList[0]);
 		List<char> tmpList = textList[0].ToList();
 		textBuffer.AddRange(tmpList);
 		textBuffer.Add('\n');

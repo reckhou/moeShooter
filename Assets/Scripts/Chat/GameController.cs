@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
 		Warning,
 		Shock,
 		ShockEnd,
+		SwitchStepEnd,
 		End
 	};
 	public LogicStep NextStep;
@@ -30,6 +31,8 @@ public class GameController : MonoBehaviour {
 	private int[] answers;
 	private int curAnswer;
 	private int correctAnswer;
+
+	private LogicStep curStep;
 
 	// Use this for initialization
 	void Start () {
@@ -58,7 +61,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	void questionStep() {
-		print("question step!");
 		chatBox.gameObject.SetActive(false);
 		selectBox.gameObject.SetActive(true);
 		string[] questions = new string[4];
@@ -193,6 +195,18 @@ public class GameController : MonoBehaviour {
 
 
 	public void SwitchStep() { // device on/off
+		print("switch step");
+		chatBox.gameObject.SetActive(true);
+		chatBox.SetText(null);
+		chatBox.AddText("请配合继续实验！！\n");
+		chatBox.PlayLine();
+		NextStep = LogicStep.SwitchStepEnd;
+	}
+
+	public void SwitchStepCallback() {
+		machineController.SwitchON();
+		NextStep = LogicStep.Question;
+		questionStep();
 	}
 
 	void LogicEnd() {
@@ -222,6 +236,8 @@ public class GameController : MonoBehaviour {
 			LogicEnd();
 		} else if (NextStep == LogicStep.ShockEnd) {
 			chatBox.gameObject.SetActive(false);
+		} else if (NextStep == LogicStep.SwitchStepEnd) {
+			SwitchStepCallback();
 		}
 	}
 
