@@ -16,6 +16,10 @@ public class ChatBox : MonoBehaviour {
 
 	public Sprite DoctorAvatar;
 	public Sprite SubjectAvatar;
+	public AudioSource pressAudio;
+	public AudioSource typeAudio;
+
+	public bool playTypeAudio;
 
 	public enum Character {
 		Doctor,
@@ -40,6 +44,7 @@ public class ChatBox : MonoBehaviour {
 		}
 
 		textList = new List<string>();
+		playTypeAudio = true;
 	}
 
 	public void SetAvatar(Character type) {
@@ -51,6 +56,7 @@ public class ChatBox : MonoBehaviour {
 	}
 
 	public void SetText(List<string> list) {
+		playTypeAudio = true;
 		clearText();
 		textList.Clear();
 		if (list == null) {
@@ -87,10 +93,22 @@ public class ChatBox : MonoBehaviour {
 		textBuffer.AddRange(tmpList);
 		textBuffer.Add('\n');
 		textList.RemoveAt(0);
+		if (!playTypeAudio) {
+			print ("not type audio");
+		} /*else {
+			typeAudio.Play();
+		}*/
+		if (!typeAudio.isPlaying && playTypeAudio) {
+			typeAudio.Play();
+    	}
 	}
 
 	void textEnd() {
 		gameController.TextEndCallback();
+	}
+
+	public void PlayPressAudio() {
+		pressAudio.Play();
 	}
 
 	public void Update() {

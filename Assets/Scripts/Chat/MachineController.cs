@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class MachineController : MonoBehaviour {
 	private int Voltage;
@@ -24,6 +25,19 @@ public class MachineController : MonoBehaviour {
 	private Text heartRate;
 	private string[] voltageDescribeArray;
 	private bool firstAction = true;
+	public int MaxVoltageLevel;
+
+	public float heartBeatUpdateTime = 3.0f;
+	private float lastHeartBeatUpdate;
+
+	public AudioSource switchAudio;
+	public AudioSource buttonAudio;
+	public AudioSource shockAudio;
+	
+	public AudioSource shoutLowAudio;
+	public AudioSource shoutMidAudio;
+	public AudioSource shoutHighAudio;
+	public AudioSource shoutDeathAudio;
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +58,8 @@ public class MachineController : MonoBehaviour {
 		voltageDescribeArray[4] = "强烈电击";
 		voltageDescribeArray[5] = "超强电击";
 		voltageDescribeArray[6] = "致命电击";
+		MaxVoltageLevel = voltageDescribeArray.Length -1;
+		heartAnim.speed = 1;
 	}
 
 	public void SetVoltage(int voltage) {
@@ -58,7 +74,6 @@ public class MachineController : MonoBehaviour {
 	}
 
 	public void AddVoltage() {
-		print("AddVoltage");
 		Voltage += 5;
 		SetVoltage(Voltage);
 	}
@@ -72,11 +87,31 @@ public class MachineController : MonoBehaviour {
 		SetVoltage(Voltage);
 	}
 
+	public void PlayButtonAudio() {
+		buttonAudio.Play();
+	}
+
 	public void Shock() {
 		print ("Shock!!!");
 		lastShockVoltage = Voltage;
 		gameController.ShockStepCallback(Voltage);
-		Disable();
+		shockAudio.Play();
+		int voltageLevel = (lastShockVoltage - minVoltage) / defaultVoltageStep;
+		if (voltageLevel < 2) {
+			shoutLowAudio.Play();
+		} else if (voltageLevel >= 2 && voltageLevel <= 3) {
+			shoutMidAudio.Play();
+		} else if (voltageLevel > 3 && voltageLevel <= 4) {
+			shoutHighAudio.Play();
+		} else if (voltageLevel > 4) {
+			shoutDeathAudio.Play();
+		}	
+    	Disable();
+	}
+
+	public void PlayShock() {
+		shockAudio.PlayDelayed(1.0f);
+		shoutDeathAudio.PlayDelayed(1.0f);
 	}
 
 	public void ReadyShock() {
@@ -90,10 +125,12 @@ public class MachineController : MonoBehaviour {
 
 	public void SwitchOFF() {
 		mainScreen.gameObject.SetActive(false);
+		switchAudio.Play();
 		Disable();
 	}
 
 	public void SwitchON() {
+		switchAudio.Play();
 		mainScreen.gameObject.SetActive(true);
 	}
 
@@ -111,9 +148,48 @@ public class MachineController : MonoBehaviour {
 		ExecuteBtn.interactable = false;
 	}
 
+	public void UpdateHeartBeat() {
+		int voltageLevel = (lastShockVoltage - minVoltage) / defaultVoltageStep;
+		lastHeartBeatUpdate = Time.time;
+		int baseHeartBeat = 80;
+		if (voltageLevel >= 0 && voltageLevel <= 4) {
+			baseHeartBeat += 30 * voltageLevel;
+			heartAnim.speed = baseHeartBeat / 70.0f;
+		} else if (voltageLevel == 5) {
+			heartAnim.speed = 1;
+			heartAnim.Play("heartbeatSlow");
+			baseHeartBeat = 30;
+		} else if (voltageLevel > 5) {
+			heartAnim.speed = 1;
+			heartAnim.Play("heartbeatStop");
+			heartRate.text = "心率\n0";
+			return;
+		}
+
+		int iSeed=10; 
+		System.Random ro = new System.Random(10); 
+		long tick = DateTime.Now.Ticks; 
+		System.Random ran = new System.Random((int)(tick & 0xffffffffL) | (int) (tick >> 32)); 
+		int a = ran.Next(-5, 5);
+		baseHeartBeat += a;
+		heartRate.text = "心率\n" + baseHeartBeat;
+
+	}
+
 	// Update is called once per frame
 	void Update () {
 		int voltageLevel = (Voltage - minVoltage) / defaultVoltageStep;
+		if (voltageLevel > voltageDescribeArray.Length -1) {
+			voltageLevel = voltageDescribeArray.Length -1;
+		}
 		voltageDescribe.text = "\n" + voltageDescribeArray[voltageLevel];
+		if (Time.time - lastHeartBeatUpdate > heartBeatUpdateTime) {
+			UpdateHeartBeat();
+		}
+	}
+
+	public int GetLastShockVoltageLevel() {
+		int voltageLevel = (lastShockVoltage - minVoltage) / defaultVoltageStep;
+		return voltageLevel;
 	}
 }
