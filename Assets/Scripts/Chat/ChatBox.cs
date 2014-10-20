@@ -62,7 +62,7 @@ public class ChatBox : MonoBehaviour {
 	public void SetText(List<string> list) {
 		playTypeAudio = true;
 		clearText();
-		textList.Clear();
+		textList = new List<string> ();
 		if (list == null) {
 			return;
 		}
@@ -99,7 +99,7 @@ public class ChatBox : MonoBehaviour {
 		textBuffer.AddRange(tmpList);
 		textBuffer.Add('\n');
 		textList.RemoveAt(0);
-		if (/*!typeAudio.isPlaying &&*/ playTypeAudio) {
+		if (!typeAudio.isPlaying && playTypeAudio) {
 			typeAudio.Play();
     	}
 	}
@@ -147,6 +147,10 @@ public class ChatBox : MonoBehaviour {
 		curText += textBuffer[0];
 		TextBox.text = curText;
 		textBuffer.RemoveAt(0);
+
+		if (!typeAudio.isPlaying && playTypeAudio) {
+			typeAudio.Play();
+		}
 	}
 
 	private void clearText() {

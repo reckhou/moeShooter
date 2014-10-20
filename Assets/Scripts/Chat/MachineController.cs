@@ -8,6 +8,7 @@ public class MachineController : MonoBehaviour {
 	public int minVoltage = 60;
 	public int maxVoltage = 300;
 	public int minVoltageStep = 20;
+	public int maxVoltageStep = 60;
 	public int defaultVoltageStep = 40;
 	public int lastShockVoltage;
 
@@ -81,6 +82,9 @@ public class MachineController : MonoBehaviour {
 	}
 
 	public void AddVoltage() {
+		if (Voltage + 5 > lastShockVoltage + maxVoltageStep) {
+			return;
+		}
 		Voltage += 5;
 		SetVoltage(Voltage);
 	}
