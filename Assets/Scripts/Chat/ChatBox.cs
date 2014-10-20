@@ -18,8 +18,12 @@ public class ChatBox : MonoBehaviour {
 	public Sprite SubjectAvatar;
 	public AudioSource pressAudio;
 	public AudioSource typeAudio;
+	public Button nextButton;
 
 	public bool playTypeAudio;
+
+	private bool textPlaying;
+	public bool isDebug;
 
 	public enum Character {
 		Doctor,
@@ -75,6 +79,8 @@ public class ChatBox : MonoBehaviour {
 	}
 
 	public void PlayLine() {
+		updateButtonStatus ();
+
 		if (textList.Count < 1) {
 			textEnd();
 			return;
@@ -107,7 +113,16 @@ public class ChatBox : MonoBehaviour {
 	}
 
 	public void Update() {
+		updateButtonStatus ();
+	}
 
+	void updateButtonStatus() {
+		if (textPlaying && !isDebug) {
+			nextButton.interactable = false;
+			return;		
+		} else {
+			nextButton.interactable = true;
+		}
 	}
 
 	public void CheckStatus() {
@@ -123,8 +138,11 @@ public class ChatBox : MonoBehaviour {
 
 	private void updateText() {
 		if (textBuffer.Count < 1) {
+			textPlaying = false;
 			return;
 		}
+
+		textPlaying = true;
 		string curText = TextBox.text;
 		curText += textBuffer[0];
 		TextBox.text = curText;

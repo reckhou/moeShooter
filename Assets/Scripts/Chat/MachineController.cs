@@ -39,6 +39,10 @@ public class MachineController : MonoBehaviour {
 	public AudioSource shoutHighAudio;
 	public AudioSource shoutDeathAudio;
 
+	public AudioSource heartBeatAudio;
+	public AudioSource heartStopAudio;
+	private bool heartStopAudioPlayed;
+
 	private bool shockCalled;
 	public bool ShockSyncLock = false;
 
@@ -143,7 +147,7 @@ public class MachineController : MonoBehaviour {
 		int baseHeartBeat = 80;
 		if (voltageLevel >= 0 && voltageLevel <= 4) {
 			baseHeartBeat += 30 * voltageLevel;
-			heartAnim.speed = baseHeartBeat / 70.0f;
+			heartAnim.speed = baseHeartBeat / 60.0f;
 		} else if (voltageLevel == 5) {
 			heartAnim.speed = 1;
 			heartAnim.Play("heartbeatSlow");
@@ -206,5 +210,20 @@ public class MachineController : MonoBehaviour {
 	public int GetLastShockVoltageLevel() {
 		int voltageLevel = (lastShockVoltage - minVoltage) / defaultVoltageStep;
 		return voltageLevel;
+	}
+
+	public void PlayHeartBeatAudio() {
+		heartBeatAudio.Play ();
+	}
+
+	public void PlayHeartStopAudio() {
+		if (!heartStopAudioPlayed) {
+			heartStopAudio.Play ();
+			heartStopAudioPlayed = true;
+		}
+	}
+
+	public void StopHeartStopAudio() {
+		heartStopAudio.Stop ();
 	}
 }

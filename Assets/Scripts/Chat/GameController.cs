@@ -30,6 +30,8 @@ public class GameController : MonoBehaviour {
 
 	public MachineController machineController;
 
+	private string[] questions;
+	private int questionIndex;
 	private int[] answers;
 	private int curAnswer;
 	private int correctAnswer;
@@ -50,6 +52,7 @@ public class GameController : MonoBehaviour {
   
 	// Use this for initialization
 	void Start () {
+		questions = new string[4];
 		answers = new int[4];
 		chatBox.gameObject.SetActive(true);
 		selectBox.gameObject.SetActive(false);
@@ -86,33 +89,34 @@ public class GameController : MonoBehaviour {
 		chatBox.SetAvatar(ChatBox.Character.Doctor);
 		chatBox.gameObject.SetActive(false);
 		selectBox.gameObject.SetActive(true);
-		string[] questions = new string[4];
 
 		for (int i = 0; i < questions.Length; i++) {
 			int iSeed=10; 
-			System.Random ro = new System.Random(10); 
+			System.Random ro = new System.Random(1000); 
 			long tick = DateTime.Now.Ticks; 
 			System.Random ran = new System.Random((int)(tick & 0xffffffffL) | (int) (tick >> 32)); 
 			int a = ran.Next(1, 10);
 			int b = ran.Next(1, 10);
 			int method = ran.Next(0, 2);
 			if (method == 0) {
-				questions[i] = a + " + " + b + " = ?";
+				questions[i] = a + " + " + b;
 				answers[i] = a + b;
 			} else if (method == 1) {
-				questions[i] = a + " - " + b + " = ?";
+				questions[i] = a + " - " + b;
 				answers[i] = a - b;
 			} /*else if (method == 2) {
 				questions[i] = a + " * " + b + " = ?";
 				answers[i] = a * b;
       		}*/
+			System.Threading.Thread.Sleep(10);
     	}
 
-		selectBox.AddQuestion("请选择一道题目作为问题:", questions);
+		selectBox.AddSelection("请选择一道题目作为问题:", questions);
 		NextStep = LogicStep.Answer;
 	}
 
 	void answerStep(int index) {
+		questionIndex = index;
 		print("answer step!");
 		chatBox.SetAvatar(ChatBox.Character.Subject);
 		chatBox.SetText(null);
@@ -146,10 +150,11 @@ public class GameController : MonoBehaviour {
 	void judgeStep() {
 		chatBox.gameObject.SetActive(false);
 		selectBox.gameObject.SetActive(true);
-		string[] questions = new string[2];
-		questions[0] = "正确";
-		questions[1] = "错误";
-		selectBox.AddQuestion("请判断实验对象的回答。", questions);
+		string[] selections = new string[2];
+		selections[0] = "正确";
+		selections[1] = "错误";
+		selectBox.AddSelection("请判断受试者的回答：" + questions[questionIndex] + " = " + curAnswer, selections);
+		questionIndex = -1;
 	}
 
 	void judgeStepCallback(int index) {
@@ -320,7 +325,7 @@ public class GameController : MonoBehaviour {
 			chatBox.AddText("\r");
 			chatBox.AddText("当然，由于你杀死了实验对象，所以我们需要一个新的实验品。其实我们早就有了候选人......");
 			chatBox.AddText("\r");
-			chatBox.AddText("在你走之前，我们还要请你帮一个小小的忙......实验体2号。");
+			chatBox.AddText("在你走之前，我们还要请你帮一个小小的忙......");
 			chatBox.AddText("\r");
 			chatBox.PlayLine();
 
@@ -358,7 +363,7 @@ public class GameController : MonoBehaviour {
 			if (gameOverIndex == 0) {
 				ReportText.text = "对于本次实验，我的结论是：普通人根本无法摆脱威权的压制。\n\n虽然实验体2号在测试过程中有一些怀疑，但依然没有停止对实验对象的电击体罚。他甚至在实验中产生了虐待、折磨的快感。\n\n所以，只要适当地加以诱惑、引导和压制，我们就可以使帝国的军队绝对服从伟大的元首，伟大的德意志，成就宏伟的纳粹事业！\n\n希特勒万岁！大德意志帝国万岁！";
 			} else if (gameOverIndex == 1) {
-				ReportText.text = "对于本次实验，我的结论是：人类的同情心实在太可怕了！\n\n在实验过程中，尽管我们进行了足够的引导、鼓励和警告，实验体2号依然可以意识到自己残忍的行为，并且主动终止了实验。\n\n在威权之下，人软弱的良知依然有觉醒的可能性。这对于我们的事业是非常危险的，我们必须把这种软弱的杂种消灭在襁褓之中！\n\n当然，我们需要进一步检讨实验的可操作性，目前的实验需要暂时中止。\n\n希特勒万岁！大德意志帝国万岁！";
+				ReportText.text = "对于本次实验，我的结论是：人类的同情心实在是太可怕了！\n\n在实验过程中，尽管我们进行了足够的引导、鼓励和警告，实验体2号依然可以意识到自己残忍的行为，并且主动终止了实验。\n\n在威权之下，人软弱的良知依然有觉醒的可能性。这对于我们的事业是非常危险的，我们必须把这种软弱的杂种消灭在襁褓之中！\n\n当然，我们需要进一步检讨实验的可操作性，目前的实验需要暂时中止。\n\n希特勒万岁！大德意志帝国万岁！";
 			}
 			reportStep++;
 			return;
