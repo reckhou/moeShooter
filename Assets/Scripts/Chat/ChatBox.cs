@@ -93,12 +93,7 @@ public class ChatBox : MonoBehaviour {
 		textBuffer.AddRange(tmpList);
 		textBuffer.Add('\n');
 		textList.RemoveAt(0);
-		if (!playTypeAudio) {
-			print ("not type audio");
-		} /*else {
-			typeAudio.Play();
-		}*/
-		if (!typeAudio.isPlaying && playTypeAudio) {
+		if (/*!typeAudio.isPlaying &&*/ playTypeAudio) {
 			typeAudio.Play();
     	}
 	}
@@ -112,14 +107,18 @@ public class ChatBox : MonoBehaviour {
 	}
 
 	public void Update() {
+
+	}
+
+	public void CheckStatus() {
 		if (Time.time - lastUpdateTime > textDeltaTime) {
 			updateText();
 			lastUpdateTime = Time.time;
 		}
-
-		if (Input.GetKeyUp("space")) {
-			PlayLine();
-		}
+		
+//		if (Input.GetKeyUp("space")) {
+//			PlayLine();
+//    	}
 	}
 
 	private void updateText() {

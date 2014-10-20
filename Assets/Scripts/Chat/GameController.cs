@@ -233,6 +233,7 @@ public class GameController : MonoBehaviour {
 
 		print (machineController.GetLastShockVoltageLevel() + " " + machineController.MaxVoltageLevel);
 		if (machineController.GetLastShockVoltageLevel() >= machineController.MaxVoltageLevel) {
+			print ("ShockStepCallback:chatBox.gameObject.SetActive(true);");
 			chatBox.gameObject.SetActive(true);
 			chatBox.SetText(null);
 			chatBox.AddText("实验对象看起来已经完全失去了知觉....");
@@ -240,13 +241,14 @@ public class GameController : MonoBehaviour {
 			chatBox.PlayLine();
 			NextStep = LogicStep.End;
 		} else {
+			print ("ShockStepCallback:chatBox.gameObject.SetActive(true);");
 			chatBox.gameObject.SetActive(true);
 			chatBox.SetText(null);
 			int iSeed=10; 
 			System.Random ro = new System.Random(10); 
 			long tick = DateTime.Now.Ticks; 
 			System.Random ran = new System.Random((int)(tick & 0xffffffffL) | (int) (tick >> 32)); 
-			int a = ran.Next(0, 5);
+			int a = ran.Next(0, 4);
 			if (a == 0) {
 				chatBox.AddText("好痛！额啊啊啊啊啊啊啊啊啊啊啊啊.....");
 			} else if (a == 1) {
@@ -258,6 +260,7 @@ public class GameController : MonoBehaviour {
 			}
 			chatBox.playTypeAudio = false;
 			chatBox.PlayLine();
+			print ("NextStep = LogicStep.Question;");
 			NextStep = LogicStep.Question;
 		}
 	}
@@ -371,6 +374,7 @@ public class GameController : MonoBehaviour {
 
 	public void TextEndCallback() {
 		print("textEndCallback");
+		print ("NextStep: "+NextStep);
 		if (NextStep == LogicStep.Experiment) {
 			LogicExperiment();
 		} else if (NextStep == LogicStep.Question) {
@@ -400,6 +404,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void Update() {
+		machineController.CheckStatus();
+		chatBox.CheckStatus();
+
 		if (NextStep == LogicStep.PostReport) {
 			if (Input.anyKeyDown) {
 				ReportNext();

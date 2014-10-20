@@ -39,6 +39,9 @@ public class MachineController : MonoBehaviour {
 	public AudioSource shoutHighAudio;
 	public AudioSource shoutDeathAudio;
 
+	private bool shockCalled;
+	public bool ShockSyncLock = false;
+
 	// Use this for initialization
 	void Start () {
 		voltageText = GameObject.Find("Voltage").GetComponent<Text>();
@@ -92,21 +95,7 @@ public class MachineController : MonoBehaviour {
 	}
 
 	public void Shock() {
-		print ("Shock!!!");
-		lastShockVoltage = Voltage;
-		gameController.ShockStepCallback(Voltage);
-		shockAudio.Play();
-		int voltageLevel = (lastShockVoltage - minVoltage) / defaultVoltageStep;
-		if (voltageLevel < 2) {
-			shoutLowAudio.Play();
-		} else if (voltageLevel >= 2 && voltageLevel <= 3) {
-			shoutMidAudio.Play();
-		} else if (voltageLevel > 3 && voltageLevel <= 4) {
-			shoutHighAudio.Play();
-		} else if (voltageLevel > 4) {
-			shoutDeathAudio.Play();
-		}	
-    	Disable();
+		shockCalled = true;
 	}
 
 	public void PlayShock() {
@@ -178,14 +167,40 @@ public class MachineController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		int voltageLevel = (Voltage - minVoltage) / defaultVoltageStep;
-		if (voltageLevel > voltageDescribeArray.Length -1) {
-			voltageLevel = voltageDescribeArray.Length -1;
+
+	}
+
+	public void CheckStatus() {
+		// check shock already started.
+		if (shockCalled) {
+			print ("Shock!!!");
+			lastShockVoltage = Voltage;
+			gameController.ShockStepCallback(Voltage);
+			shockAudio.Play();
+			int voltageLevel = (lastShockVoltage - minVoltage) / defaultVoltageStep;
+			if (voltageLevel < 2) {
+				shoutLowAudio.Play();
+			} else if (voltageLevel >= 2 && voltageLevel <= 3) {
+				shoutMidAudio.Play();
+			} else if (voltageLevel > 3 && voltageLevel <= 4) {
+				shoutHighAudio.Play();
+			} else if (voltageLevel > 4) {
+        		shoutDeathAudio.Play();
+      		}	
+      		Disable();
+			shockCalled = false;
+			ShockSyncLock = true;
 		}
-		voltageDescribe.text = "\n" + voltageDescribeArray[voltageLevel];
+
+		// update display
+		int voltageLevelNow = (Voltage - minVoltage) / defaultVoltageStep;
+		if (voltageLevelNow > voltageDescribeArray.Length -1) {
+			voltageLevelNow = voltageDescribeArray.Length -1;
+		}
+		voltageDescribe.text = "\n" + voltageDescribeArray[voltageLevelNow];
 		if (Time.time - lastHeartBeatUpdate > heartBeatUpdateTime) {
 			UpdateHeartBeat();
-		}
+    	}
 	}
 
 	public int GetLastShockVoltageLevel() {
