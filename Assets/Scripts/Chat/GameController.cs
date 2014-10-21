@@ -49,6 +49,9 @@ public class GameController : MonoBehaviour {
 	public int reportStep;
 
 	public ReportTextController reportTextController;
+	public int ReportWait = 5;
+	private bool reportWaiting;
+	private bool reportWaitEnd;
   
 	// Use this for initialization
 	void Start () {
@@ -127,7 +130,7 @@ public class GameController : MonoBehaviour {
 		System.Random ran = new System.Random((int)(tick & 0xffffffffL) | (int) (tick >> 32)); 
 		int a = ran.Next(1, 10);
 		int b = ran.Next(1, 10);
-		int isCorrect = ran.Next(0, 3);
+		int isCorrect = ran.Next(0, 4);
 		correctAnswer = answers[index];
 		if (isCorrect == 0) {
 			// correct
@@ -360,10 +363,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	void ReportNext() {
-		if (singleMusicInstance.Instance != null) {
-			singleMusicInstance.Instance.Play (1);
-		}
-		System.Threading.Thread.Sleep(5000);
 		if (reportStep == 0) {
 			ReportUI.gameObject.SetActive(true);
 			reportStep++;
@@ -389,7 +388,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		if (reportStep == 2) {
-			System.Threading.Thread.Sleep(5000);
+//			WaitForSeconds(5);
 			Application.LoadLevel("endScene");
 
 			reportStep++;
@@ -433,13 +432,36 @@ public class GameController : MonoBehaviour {
 		chatBox.CheckStatus();
 
 		if (NextStep == LogicStep.PostReport) {
+			if (reportWaitEnd) {
+				if (singleMusicInstance.Instance != null) {
+					singleMusicInstance.Instance.Play (1);
+				}
+				ReportNext();
+				reportWaitEnd = false;
+				reportWaiting = false;
+				return;
+			}
+
 			if (Input.anyKeyDown) {
 				if (reportTextController.AllTextPlayed()) {
-					ReportNext();
+					if (!reportWaiting) {
+					    StartCoroutine("ReportTimer");
+					}
 				} else if (!reportTextController.isPlaying) {
 					reportTextController.Continue();
 				}
 			}
 		}
+	}
+
+	void ReportWaitEnd() {
+		reportWaitEnd = true;
+	}
+
+	IEnumerator ReportTimer() {
+		reportWaiting = true;
+		yield return new WaitForSeconds(5);
+		ReportWaitEnd();
+		yield return null;
 	}
 }
